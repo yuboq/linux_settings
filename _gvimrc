@@ -1,0 +1,18 @@
+:set guifont=Courier_New:h16:cANSI
+:imap jk <Esc>
+:set number
+
+
+"indenting
+"show exisitng tab with 2 spaces width
+set tabstop=2
+"when indenting with '>', use 2 spaces widht
+set shiftwidth=2
+"on pressing tab, insert 2 spaces
+set expandtab
+"disable octal on <C-a> and <C-x>
+set nrformats-=octal
+
+"open/reload vim
+nnoremap <leader>ev : split $MYVIMRC<CR>
+nnoremap <leader>sv : source $MYVIMRC<CR>
