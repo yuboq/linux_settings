@@ -1,0 +1,80 @@
+COMMON VIM COMMANDS
+>               is a tab
+<               is a reverse tab
+>G   OR :%      tab everything until end of file
+C               same as c$
+s               same as cl
+S               same as ^C
+I               ^i
+:s/target/replacement           perform substitution. To repeat &, undo: u, :s_flags, :h cmdline-range
+q               start macro
+*               search for word under cursor
+daw             delete a word
+<C-a>           addition
+<C-x>           subtraction
+<C-o>           jump backwrad in jump list: places where the cursor has bene to. e.g. 6G <C-o> to jump back
+<C-i>           jump forward in jump list
+
+Operator commands
+g~              swap case
+gu              make lower case
+gU              Make upper case
+gUU             make line upper case
+=               autoindent, useful with gg=G command
+!               filter {motion lines through an external program}
+
+get Tim Pop commentary.vim
+
+Insert Mode:
+<C-h>           backspace
+<C-w>           delete a word
+<C-u>           delete a line
+<C-[>           esc
+<C-r>0          paste register 0, does the same as 'p' in normal mode
+<C-r>=5*35<CR>  do math
+<C-o>           enter normal mode for a 1 liner, and switch back to insert mode
+
+Visual Mode:
+You have access to f{char} and search '/', C, A, I
+viw visual a word (regardless of where the cursor is)
+vaw             visual a word (from cursor to end of the word)
+vw              visual a word (from cursor to beginnign of next word)
+v               visual a character
+V               visual a line
+<C-v>           visual a block, extremely useful for drawing boxes, replacing text, etc with conjucntion with : command
+                If used with A or I, does the change for all the lines in the highlighted text
+gv              redo the last selectoin
+You can press the same visual mode key again to switch back to previous mode
+o               go to other end of highlighted text (toggle free end)
+.               repeats the last action (espeically useful in tabbing lines of code
+vit             selects between two tags <a href="#">one</a>, the 'one' would be highlighted
+<C-v>jj$        visual block until end of line
+
+command line mode:
+[range]         
+:{start},{end}  start and end address i.e. 2,5p prints lines 2 and 5 inclusive
+:.,$p           prints from here to end of file
+:%p             prints all lines in current file, same as :1,$p
+:/<html>/,/<\/html>/p            prints lines between two html tags
+:.,.+3p         prints current line up to current line + 3
+:copy or :t     
+:6copy.         copy line 6 to just below current line
+:move or :m
+
+Normal mode
+<C-o>           jump forward through jump list: places where the cursor has been to
+<C-i>           jump backwards through jump list
+:[range]move{address}           move command is pretty much same format as copy command
+:[range]normal{command}
+:2,5norm A      append to lines 2 to 5 inclusive
+@:              repeat last ex command
+@@              repeat last repeat of ex command
+<C-d>           in ex mode, link all options
+<tab>           autocomplete in ex command
+<C-r><C-w>      to place current word under cursor into ex command
+J               joins line under with current line
+q:              command line window
+:!              execute one liner in shell, when in this mode % is shorthand for current file name
+:shell          open a shell session
+:read!{cmd}     outputs from {cmd} into current buffer, used for taking outputs of command
+!G{cmd}         run command from current line to end of file

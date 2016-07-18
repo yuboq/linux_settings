@@ -1,8 +1,17 @@
-:set guifont=Courier_New:h16:cANSI
+set guifont=Courier_New:h16:cANSI
 :imap jk <Esc>
-:set number
+set number
 
+"configure Vim to load plugins
+set nocompatible
+filetype plugin on
+runtime macros/matchit.vim
 
+"set autocomplete
+set wildmode=longest,list
+
+"Delete forwards a word
+:imap <C-d> <C-]>diwi
 "indenting
 "show exisitng tab with 2 spaces width
 set tabstop=2
@@ -16,3 +25,11 @@ set nrformats-=octal
 "open/reload vim
 nnoremap <leader>ev : split $MYVIMRC<CR>
 nnoremap <leader>sv : source $MYVIMRC<CR>
+
+"%:h when editing files
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+nnoremap k gk
+nnoremap gk k
+nnoremap j gj
+nnoremap gj j
