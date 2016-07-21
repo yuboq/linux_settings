@@ -78,3 +78,110 @@ q:              command line window
 :shell          open a shell session
 :read!{cmd}     outputs from {cmd} into current buffer, used for taking outputs of command
 !G{cmd}         run command from current line to end of file
+
+vi}             selects characters contained by the {} braces. Cursor position doesn't matter as
+                long as it's contained in the } block
+va"             selects the range delimited by double quote
+vi>              selects everything inside angle brackets
+
+note: in visual mode i selects everything inside delimiters, a selects everything including delimters
+va) or va( or vab               selects a pair of parentheses
+vi) or vi( or vib               selects inside a pair of parentheses
+va} or va{ or vaB               selects a pair of braces
+vi} or vi{ or viB               selects inside a pair of braces
+V{motion}       the stuff after the v are all motinos, and can also be used in c{motion}, d{motion}, y{motion}
+dis             delete current sentence
+das             delecte current sentence plus space
+m{a-zA-Z}       mark position. Lowercase marks are limited to each individaul buffer, while uppercase marks are 
+                globally accessible
+'{mark}         positions cursor to the first non while space character of the mark
+`{mark}         positions cursor exactly where mark was set
+"               positions before last jump within current file
+'.              positions cursor location of last change
+'^              positions cursor location of last insertion
+'[              positions cursor start of last change/yank
+']              positions cursor end of last change or yank
+'<              positions cursor start of last visual selection
+'>              positions cursor end of last visual selection
+
+
+Opening files
+:e[dit] filename
+:e[dit]% <tab>  the % is shorthand for the file path of the active buffer
+:e[dit}%:h<tab> The :h removes the filename while preserving the rest of the directory. Made shortcut %% 
+                to do %:h<tab>
+find{file}      open a file by its name without having to provide a fully qualified path
+:set path+=app/**               sets the find path to search in specified path see :h file-searching for **
+vim .           in bash, shows directory structure in vim buffer using netrw
+e[dit]. or :e%:h    in vim, shows directory structure in vim buffer using netrw
+    -           go to parent directory
+    <CR>        open file under cursor
+    /           search for file
+    %{file}     create new file after the percent <ESC> to cancel
+    d{directory}    create new directory after the percent <ESC> to cancel
+    R           rename
+    D           delete file under cursor (or directory if empty)
+:e[dit]{path}   open file explorer window
+:e[dit]%:h  open direcotry of current file
+:E[xplore]  open file explorer for the directory of active buffer (same thing as above?)
+
+
+Save files to nonexistent directories
+<C-g>           echo name and status of current file
+:!mkdir -p % :h :write          writes file to new directory
+:w !sudo tee% > /dev/null       writes file as sudo, saved as w!! in vimrc
+navigate inside files withmotions to navigate the displayed lines, use gk, gj
+e               forward to end of next or current word
+ge              backwrad to end of previous word
+WORD wise movement is capital versions of WEBGE it consists of a sequence of nonblank characters
+                separated by a whitespace
+z.              Redraw line [count] at center of windwo (default cursor line. Put cursor at first
+                non blank int he line 
+zz              like z. but leaves cursor in teh same column
+T{char}         similar to F, but after the previous occruance of the letter
+t{char}         similar to f, but before the next occurance of {char}
+f,dt.           finger macro- delete form, to period
+diw             delete inner word, (does not remove any spaces)
+daw             delete a word (and a space after it)
+:h exclusive
+:h text-objects
+
+opening files
+:ls             show files in buffer
+:bn[ext]        next buffer
+:bp[revious]    previous buffer
+:bfirst, :blast first and last buffer
+:buffer {bufname}               jump to buffer with bufname. can use tab completion
+:bufdo          execute an ex command in all buffers listed in :ls
+tim pope unimpaired vim plugin
+bd[elete] N1 N2 N3              delete buffers N1 N2 N3
+:N1, M          delete same thing as above, different form
+:4, 10 bd       delete buffers 5-10 inclusive
+:argdo
+:args           lists file that were passed as arguments when the ls command was run
+:args{arglist}  arglist can contain filenames, wildcards, and output from shell command
+                adds those arguments to the current buffer
+*               when used in combination, match zero or more characters
+**              same as *, but recurses down folders
+:args *.*       in this exmpale, it opens index.html, apps.js
+:args **/*.js   app.js, lib/framework.js etc
+:args**/*.*     everything above, including lib.css, theme/lib.css, index.html
+
+:qa[ll]!        quit vim without review unsaved changes
+:wa[ll]         write vim saving all changes
+:wn             write and move to next file
+:clpose] OR <C-w>c              close the active window
+:on[ly]  OR <C-w>o              keep only active window, close all others
+<C-w>=          equalize width and height of all windows
+:lcd{path}      change directory only for current window. useful for combining searches using vimgrep
+:pwd            working directory. Main difference with lcd is that lcd changes current directory for 
+                local file only
+:cd%:p          changes current directory for all windows in vim
+:tabe[dit]{filename}            open new tab page
+<C-w>T          move current window to new tab
+:tabe[lose]     close current tab regardless of how many windows
+:tab[only]      close all tabs except for current one
+{N}gt           Switch to tab N. where N starts from 1. If no N provided, next tab
+gT              same as above, in reverse
+tabmove[N]      rearrange Tab
+
