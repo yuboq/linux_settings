@@ -184,4 +184,164 @@ bd[elete] N1 N2 N3              delete buffers N1 N2 N3
 {N}gt           Switch to tab N. where N starts from 1. If no N provided, next tab
 gT              same as above, in reverse
 tabmove[N]      rearrange Tab
-
+tim pope surround.vim
+:jumps          show jumplist moving up/down does not count as a jump. Long range motinos count as 
+                as a jump, while short range motions are just motions
+[count]G        jump to line number
+/pattern        jump to next occurance of pattern
+%               jump to matching parenthtese
+( OR )          jump to next sentence
+{ OR }          jump to next paragraph
+H OR M OR L     jump to top/middle/bottom of screen
+gb              jumps to filename under cursor
+<c-]>           jump to definition of keyword under cursor
+:changes        shows changelist
+g; OR g,        traverse forward and backward through changelist
+gi              goes to last insertion, similar to `^
+:set suffixesadd+=rb            appends the file suffix to allow vim to open it
+:set path?      shows directories used in 'path'
+bundler.vim by tmi pope
+GLOBAL MARKS- persisted between editing sessions
+:vimgrep /foobar/**
+REGISTERS
+xp              swap 2 letters
+trivia:         black hole register is the underscore _
+"_d{motion}     deletes {motion and does not put it into register. Useful if you don't want
+                to overwirte command register
+-               jump to line above, to first non-whitespace character
+_               jump to current line, first non-whitespace character
++               jump to line below, to first non-whitespace character
+"a yiw          yank inner word and place it into register a
+"b dd           delete line and place into register B
+"ap             paste contenst of the a regsiter after cursor postiion on the current line
+trivia:         yank register is different from unnamed register and is addressed by "o
+:reg            inspect registers
+"+p             paste from system clipboard <C-r> + from insert mode does the same
+READ ONLY REGISTERS:
+"%              name of current file
+"$              name of alternative file
+".              last inserted text
+":              last ex command
+"/              last serach pattern
+p               paste text after cursor
+P               paste text before cursor
+trivia:         When putting into a visual block, the register takes in new visual block selection
+                and puts old visual block selection
+<C-r>"          paste unnamed register in insert mode
+gp and gP       puts text before or after the current line but elaves the cursor at the end of
+                instead of the beginning
+q{register}     record a macro
+@{register}     executes commands of that register
+@@              executes commands of most recently invoked macro
+tip:            when recording a macro, ensure all commands are repeatable. Use w, b, e, ge as opposed
+                to l, h, to move around. Start at the same place every time using 0
+:h visualbell   to mute visual bell
+tips:           if a macro fails while executing, vim aborts the rest of the macro. i.e. j when at 
+                last line of file. Start by looking for a pattern instead, that wya when the macro
+                can't find a match, it will atuomatically exit. e.g. woo@a will only execute 3 times
+                if there are 3 matches. ;. will not work if you want it to repeat, use a macro:
+                qq;.q22@q places;. into macro, execute it enough times to get the job done (in this case 22)
+                execute in parallel using visual
+ACT upon a collection of files
+:args           reveals the contents of a list
+:first
+:last
+:next
+:prev           these 4 commands navigate through the list
+:argdo normal @a                to run macro in a in all buffers. This runs everyhting in parallel
+:wa[ll]         write all
+:wn[ext]        write and go to next buffer
+22@a            runs everyhting in series
+:put a          paste contents of register a into a new line
+:d a            same as "add
+tip:            you can also manipulate macros using vim script:
+                :let @a=substitute(@a,'\~',U,'g')  double check this...
+PATTERN MATCHING
+\c              to set search pattern to ignore case
+\C              to enable case senstivity
+TIP:            use smartcase, cancels ignore case when there is a uppercase letter in search
+\v              very magic regualr expressions
+\x              is the same as [0-9a-fA-F]
+\v              for verbatim searches e.g. a.k.a. (the period normally means "any character") in 
+                this very nomagic search only \ has special meaning
+/\v <(\w+)\_s+\1>               regular expression that matches duplicate words
+<>              match word boundaries
+\_s             matches whitespace or line break
+/\v<the><CR>    the <> delimits our searches to only "the" as opposed to "thesse, they" etc
+/\v(H|D)andy    to search for handy or dandy
+#               search word under cursor backwrards
+\zs             start of match e.g. /amazing vim /amazing \zsVim (only vim will be highlighted)
+\ze             end of match
+\"[^"]+"        matches one or more characters between quote marks
+/"\zs[^"]+\ze"  same as above, but does not highlight quote marks
+:h escape       when searching urls, the \ escape character gets in the way, use excape() to 
+                automatically add excape chaaracters in front of the \
+?{serach}       searhc backwards
+/<CR>           search forward with last {search}
+<C-r><C-w>      autocompletes search filed using the remainder of current match
+:%s/pattern//gn               Counts the number of matches in current document (omit 'g' to
+                count the number of lines.
+:10,50s/pattern/gn              restricts the count number to lines 10 to 50 inclusive
+:%s///gn        to count the number of occurances of the last used search pattern. Use * before
+                executing this command to search for the current word under cursor.
+tip:            map <leader>* to *<C-O>:%s///gn<CR> to search for current word under cursor
+//e<CR>         Repeats last search with offset if you forget to add the /e to the first time
+                use :h search-offset
+textobj plugin by kana natsumo
+/\v'.+'         match single ' character followed by any character one or more times and terminates
+                with find ' character. e.g. this highlights entire 'two' quoted 'words'
+/\v'[^']+'      e.g. this hightlights only the two and words in 'two' quoted 'words'
+/\v'([^']|'\w)+'                e.g. this highlights both the words you don't and to in
+                'you don't' have 'to'
+q/              brings out command line window
+:%s//'\1"/g     substitues ' above for " read section 84 and 85
+v*              extends the range fo visual mdoe to next search under the cursor
+SUBSTITUTION
+:%s/{pattern}/{string}/[flags]  the flags part:
+                'g' means global change. all matches within a line rather than changing the first one
+                'c' confirm or reject the change
+                'n' supress the substittue behaviour and report the number of occurances
+                '&' reuse the same flag as previous substittue
+:h sub-replace-special          for help on special characters for replacement string
+                \r              carriage return
+                \t              tab
+                \\              backslash
+                \1              insert first submatch
+                \2              insert seconds submatch
+                \0 or \&        insert the entire matched patterh
+                ~               use string from previous inovcation of substitute
+                \={vim script}  evaluate vim script express: use result as replacement string
+:s/going/rolling                replaces first occurance of going with rolling. Leaves everything else 
+                untouched.
+:s/going/rolling/g              replaces all matches on the same line
+:%s/going/rolling/g             replaces all matches in the entire file
+:%s/copy/content/ge             replace all instances with confirm messages
+when in the 'c' mode, you have the following options:
+                y               substitute this match
+                n               skip this match
+                q               quit substituting
+                l               last substitute then quit
+                a               "all" substitute this and the remaining matches
+                <c-e>           scroll up
+                <c-y>           scroll down
+:h s_c          for more info
+:%s/\n/,        join every line in a file by replacing new line with commas
+<c-r>/          in command line this pastes last search register in  
+:%s//"\1"/g     reuse the last search pattern
+%s//\=@o/g      pass register 0 by reference in case it is too big for cmd line,
+                or might have special characters
+:let @/='hello world'           is same as /hello world<CR> but wihtout creating record in search history
+:let @a='bye world'             sets the contents in register a
+Re-reat tip 91 or :%&&
+:%s//~/& or g&. prepend % into substitue (if you forgot it)
+:&&             repeat last substitue with same flags
+:&              repeat last substitue
+re-read 93
+/\v/<\/?h/zs/d use zs to zoom into only numerical part of H1 tags and not highlight anything else
+:%s//\=submatch(0)-1/g          to reduce all header tags from H2 to H1
+:let swapper={"dog":"men", "man","dog"}         swaps dog with man
+:echo swapper["dog"]
+/\(<man>/<dog>) highlights all occurances of man
+:%s//\={"dog":"man","man":"dog"}[submatch(1)]/g
+get abolish.vim to solve this by tim pope
+re-read 96
