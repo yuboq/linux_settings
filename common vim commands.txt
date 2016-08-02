@@ -345,3 +345,4 @@ re-read 93
 :%s//\={"dog":"man","man":"dog"}[submatch(1)]/g
 get abolish.vim to solve this by tim pope
 re-read 96
+
