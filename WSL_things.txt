@@ -2,9 +2,10 @@ some things to do to make WSL terminal more comfy
 
 -remove ctrl+v and ctrl+c from settings.json
 -make ubuntu default in windows terminal
+-change starting directory in windows terminal
 -update vimrc
 -colors = dark, and campbell color scheme
--add these settings to the profile in settings.json:
+-add these settings to the profile in settings.json: (can also be changed in GUI)
   "bellStyle": "none",
   "closeOnExit": true,
   "colorScheme": "One Half Dark",
@@ -12,10 +13,10 @@ some things to do to make WSL terminal more comfy
 
 shell things
 -make python into python3: 
--make cd into cl = cd+ls
 -update bashrc 
 -copy .bash_aliases
 -touch ~/.hushlogin
+-do a quick sudo to remove the sudo message
 
 
 
