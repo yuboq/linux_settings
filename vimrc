@@ -2,7 +2,7 @@ let g:python_recommended_style = 0
 filetype plugin indent on
 syntax enable "enable syntax processing
 "tab settings
-set background=light
+set background=dark
 set shiftwidth=2
 set tabstop=2 "number of visual spaces per TAB
 set softtabstop=2 "number of spaces in tab when editing
