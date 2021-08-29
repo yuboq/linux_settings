@@ -1,11 +1,11 @@
 let g:python_recommended_style = 0
 filetype plugin indent on
 syntax enable "enable syntax processing
-"tab settings
 set background=dark
-set shiftwidth=2
-set tabstop=2 "number of visual spaces per TAB
-set softtabstop=2 "number of spaces in tab when editing
+"tab settings
+set shiftwidth=4 "number of tabs after carriage return
+set tabstop=4 "number of visual spaces per TAB
+set softtabstop=4 "number of spaces in tab when editing
 set expandtab "tabs are spaces
 
 set number "show line numbers
