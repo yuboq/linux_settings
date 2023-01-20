@@ -18,5 +18,7 @@ shell things
 -touch ~/.hushlogin
 -do a quick sudo to remove the sudo message
 
-
+Change adobe reader pdf background:
+edit -> preferences -> accessbility
+page background: 242, 238, 222
 
